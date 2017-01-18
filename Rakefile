@@ -22,7 +22,7 @@ task :pull do
   puller = Carbonvote::Puller.new(node: node, logger: logger)
 
   until stop
-    puller.pull
+    puller.pull unless puller.stop
   end
 end
 

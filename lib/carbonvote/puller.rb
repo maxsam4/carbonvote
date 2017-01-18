@@ -2,22 +2,28 @@ require 'redis'
 
 module Carbonvote
   class Puller
-    attr_reader :node, :logger
+    attr_reader :stop, :node, :logger, :redis,
+                :start_block_number, :end_block_number
 
-    def initialize(node: nil, logger: nil)
-      @node   = node
-      @logger = logger
+    def initialize(node: nil, logger: nil, settings: Settings.instance)
+      @stop               = false
+      @node               = node
+      @logger             = logger
+      @redis              = settings.redis
+      @start_block_number = settings.start_block_number
+      @end_block_number   = settings.end_block_number
     end
 
     def pull
-      current_block_number  = node.block_number
-      last_processed_number = 0
+      current_block_number = node.block_number
 
-      case current_block_number - last_processed_number
-      when 0..6
+      if (processed_number >= end_block_number)
+        logger.info("Reach the end of block number: #{end_block_number}")
+        @stop = true
+      elsif current_block_number - processed_number <= 6 # for just in case chain header might revert
         sleep 15
       else
-        pull_data(last_processed_number.zero? ? 0 : last_processed_number.next)
+        process(processed_number.next)
       end
     rescue => e
       logger.debug e.message
@@ -25,9 +31,20 @@ module Carbonvote
       raise e
     end
 
-    def pull_data(block_number)
+    def process(block_number)
       block_data = node.block(block_number, true)
-      Carbonvote.process block_data
+
+      puts block_data
+
+      update_processed_number(block_number)
+    end
+
+    def processed_number
+      redis.get('processed_block_number' || start_block_number).to_i
+    end
+
+    def update_processed_number(number)
+      redis.set 'processed_block_number', number
     end
   end
 end

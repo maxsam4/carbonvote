@@ -1,6 +1,5 @@
 require 'yaml'
 require 'singleton'
-require 'redis'
 
 module Carbonvote
   class Settings
@@ -14,8 +13,20 @@ module Carbonvote
       @settings = YAML::load_file SETTINGS_FILE
     end
 
+    def redis_url
+      settings[:redis_url]
+    end
+
     def redis
-      Redis.new(url:  settings[:redis])
+      Redis.new(url: redis_url)
+    end
+
+    def start_block_number
+      settings[:start_block_number]
+    end
+
+    def end_block_number
+      settings[:end_block_number]
     end
   end
 end

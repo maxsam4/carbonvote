@@ -1,8 +1,8 @@
-require_relative './geth/formatter'
-require_relative './geth/payload'
-require_relative './geth/node'
-require_relative './geth/client/base'
-require_relative './geth/client/ipc_client'
+require_relative 'geth/formatter'
+require_relative 'geth/payload'
+require_relative 'geth/node'
+require_relative 'geth/client/base'
+require_relative 'geth/client/ipc_client'
 
 module Geth
   class << self

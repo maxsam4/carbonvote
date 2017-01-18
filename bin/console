@@ -6,6 +6,6 @@ require "bundler/setup"
 require "irb"
 
 require 'geth'
-require 'settings'
+require 'carbonvote'
 
 IRB.start
