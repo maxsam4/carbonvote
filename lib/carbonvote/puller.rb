@@ -1,17 +1,20 @@
 require 'redis'
+require 'forwardable'
 
 module Carbonvote
   class Puller
-    attr_reader :stop, :node, :logger, :redis,
-                :start_block_number, :end_block_number
+    extend Forwardable
 
-    def initialize(node: nil, logger: nil, settings: Settings.instance)
-      @stop               = false
-      @node               = node
-      @logger             = logger
-      @redis              = settings.redis
-      @start_block_number = settings.start_block_number
-      @end_block_number   = settings.end_block_number
+    delegate [:redis, :start_block_number,
+              :end_block_number, :contract_addresses] => :settings
+
+    attr_reader :finished, :node, :logger, :settings
+
+    def initialize(node: nil, logger: nil, settings: nil)
+      @finished = false
+      @node     = node
+      @logger   = logger
+      @settings = settings
     end
 
     def pull
@@ -19,7 +22,7 @@ module Carbonvote
 
       if (processed_number >= end_block_number)
         logger.info("Reach the end of block number: #{end_block_number}")
-        @stop = true
+        @finished = true
       elsif current_block_number - processed_number <= 6 # for just in case chain header might revert
         sleep 15
       else
@@ -31,16 +34,28 @@ module Carbonvote
       raise e
     end
 
+    def pool
+      @pool ||= begin
+                  addresses = contract_addresses.map do |name, addr|
+                    Carbonvote::Contract.new(name: name, address: addr)
+                  end
+
+                  Carbonvote::Pool.new(addresses: addresses, node: node)
+                end
+    end
+
     def process(block_number)
       block_data = node.block(block_number, true)
-
-      puts block_data
-
+      pool.process block_data
       update_processed_number(block_number)
     end
 
     def processed_number
-      redis.get('processed_block_number' || start_block_number).to_i
+      if number = redis.get('processed_block_number')
+        number.to_i
+      else
+        start_block_number
+      end
     end
 
     def update_processed_number(number)

@@ -13,20 +13,20 @@ module Carbonvote
       @settings = YAML::load_file SETTINGS_FILE
     end
 
-    def redis_url
-      settings[:redis_url]
-    end
-
     def redis
       Redis.new(url: redis_url)
     end
 
-    def start_block_number
-      settings[:start_block_number]
-    end
-
-    def end_block_number
-      settings[:end_block_number]
+    [
+      :redis_url,
+      :start_block_number,
+      :end_block_number,
+      :contract_addresses,
+      :black_list
+    ].each do |method_name|
+      define_method method_name do
+        settings[method_name]
+      end
     end
   end
 end
