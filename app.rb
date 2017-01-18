@@ -1,6 +1,6 @@
 require 'sinatra/base'
 
-class Carbonvote < Sinatra::Base
+class App < Sinatra::Base
   get '/' do
     erb :index
   end
