@@ -17,15 +17,16 @@ task :pull do
   Signal.trap('INT') { stop = true }
   Signal.trap('TERM') { stop = true }
 
-  logger   = Logger.new(STDOUT)
-  node     = Geth.new(logger: logger)
-  settings = Carbonvote::Settings.instance
-  puller   = Carbonvote::Puller.new(node: node,
-                                    logger: logger,
-                                    settings: settings)
+  logger = Logger.new(STDOUT)
+  node   = Geth.new(logger: logger)
+  puller = Carbonvote::Puller.new(node: node, logger: logger)
 
   until stop
-    puller.pull unless puller.finished
+    puller.pull
+
+    if puller.finished
+      stop = true
+    end
   end
 end
 

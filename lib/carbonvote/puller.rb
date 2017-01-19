@@ -8,13 +8,14 @@ module Carbonvote
     delegate [:redis, :start_block_number,
               :end_block_number, :contract_addresses] => :settings
 
-    attr_reader :finished, :node, :logger, :settings
+    attr_reader :finished, :node, :logger, :settings, :pool
 
-    def initialize(node: nil, logger: nil, settings: nil)
+    def initialize(node: nil, logger: nil)
       @finished = false
       @node     = node
       @logger   = logger
-      @settings = settings
+      @settings = Settings.instance
+      @pool     = Carbonvote::Pool.new(node: node)
     end
 
     def pull
@@ -34,24 +35,18 @@ module Carbonvote
       raise e
     end
 
-    def pool
-      @pool ||= begin
-                  addresses = contract_addresses.map do |name, addr|
-                    Carbonvote::Contract.new(name: name, address: addr)
-                  end
-
-                  Carbonvote::Pool.new(addresses: addresses, node: node)
-                end
-    end
+    private
 
     def process(block_number)
-      block_data = node.block(block_number, true)
-      pool.process block_data
+      block = node.block(block_number)
+      block['transactions'].each do |tx_id|
+        pool.process block_number, tx_id
+      end
       update_processed_number(block_number)
     end
 
     def processed_number
-      if number = redis.get('processed_block_number')
+      if number = redis.get('processed-block-number')
         number.to_i
       else
         start_block_number
@@ -59,7 +54,7 @@ module Carbonvote
     end
 
     def update_processed_number(number)
-      redis.set 'processed_block_number', number
+      redis.set 'processed-block-number', number
     end
   end
 end
