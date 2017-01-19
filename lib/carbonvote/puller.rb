@@ -40,7 +40,7 @@ module Carbonvote
     def process(block_number)
       block = node.block(block_number)
       block['transactions'].each do |tx_id|
-        pool.process block_number, tx_id
+        pool.process tx_id, block_number
       end
       update_processed_number(block_number)
     end
