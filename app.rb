@@ -1,9 +1,9 @@
+require "bundler/setup"
 require 'sinatra/base'
 require "sinatra/reloader"
 require "sinatra/config_file"
 require "sinatra/json"
-
-require_relative 'lib/Carbonvote'
+require 'redis'
 
 class App < Sinatra::Base
   configure :development do
