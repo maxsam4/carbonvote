@@ -1,14 +1,14 @@
 ---
 :redis_url: 'redis://localhost:6379/2'
-:start_block_number: 372000
-:end_block_number: 372030
+:start_block_number: 3031000
+:end_block_number: 4000000
 :contract_addresses:
-  :no_contract: '0x31dfa020ffcda36652429b66d3573d0f8890cc0c'
-  :yes_contract_1: '0x6e3a0d2e8bfda62108884b39ea767fde9e66fd3a'
-  :yes_contract_2: '0xaeb63c06512cde96fad9f6bd30f5eeda5e9412fc'
-  :yes_contract_3: '0xaeb63c06512cde96fad9f6bd30f5eeda5e9412fc'
-  :yes_contract_4: '0xaeb63c06512cde96fad9f6bd30f5eeda5e9412fc'
-  :yes_contract_5: '0xaeb63c06512cde96fad9f6bd30f5eeda5e9412fc'
+  :no_contract: '0x71cAFF5fD6FacbaF1863426aC05b3703636a9BB9'
+  :yes_contract_1: '0x3Af6dF663d717b0Ecc24144279a81A2483Fbe510'
+  :yes_contract_2: '0xA73908834DFDd442EBFE171100ac0BeFa6Abb1F5'
+  :yes_contract_3: '0x5A3466432Ff4Ba946f84786462f0b6830c7D2bEF'
+  :yes_contract_4: '0x77888FAaB224e03d76c517455c442cB6fE8DAe40'
+  :yes_contract_5: '0xFb0d2a63d8910D9582c430f1ffD3b2FC79bBDfdF'
 :black_list:
   :Yunbi: '0xd94c9ff168dc6aebf9b6cc86deff54f3fb0afc33'
   :Kraken: '0x2910543af39aba0cd09dbb2d50200b3e800a63d2'
