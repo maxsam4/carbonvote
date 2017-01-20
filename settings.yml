@@ -3,9 +3,12 @@
 :start_block_number: 372000
 :end_block_number: 372030
 :contract_addresses:
-  :yes_contract: '0x31dfa020ffcda36652429b66d3573d0f8890cc0c'
-  :no_contract_1: '0x6e3a0d2e8bfda62108884b39ea767fde9e66fd3a'
-  :no_contract_2: '0xaeb63c06512cde96fad9f6bd30f5eeda5e9412fc'
+  :no_contract: '0x31dfa020ffcda36652429b66d3573d0f8890cc0c'
+  :yes_contract_1: '0x6e3a0d2e8bfda62108884b39ea767fde9e66fd3a'
+  :yes_contract_2: '0xaeb63c06512cde96fad9f6bd30f5eeda5e9412fc'
+  :yes_contract_3: '0xaeb63c06512cde96fad9f6bd30f5eeda5e9412fc'
+  :yes_contract_4: '0xaeb63c06512cde96fad9f6bd30f5eeda5e9412fc'
+  :yes_contract_5: '0xaeb63c06512cde96fad9f6bd30f5eeda5e9412fc'
 :black_list:
   :Yunbi: '0xd94c9ff168dc6aebf9b6cc86deff54f3fb0afc33'
   :Kraken: '0x2910543af39aba0cd09dbb2d50200b3e800a63d2'

@@ -1,1 +1,186 @@
-Hello
+<!doctype html>
+<html lang="zh-Hans">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carbonvote</title>
+
+  <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Color the status bar on mobile devices -->
+  <meta name="theme-color" content="#2F3BA2">
+
+  <!-- Your styles -->
+  <link rel="stylesheet" href="styles/reset.css">
+  <link rel="stylesheet" href="styles/rhythm.css">
+  <link rel="stylesheet" href="styles/index.css">
+</head>
+
+<body>
+  <header class="header">
+    <div class="rhythm">
+      <h1 class="title">Carbonvote</h1>
+
+      <div class="description">
+        <p><strong>Hey Ethereum Community,</strong></p>
+        <p>In the face of the approaching Ice Age, we are faced with problems:</p>
+        <p>The prolonged block time in the Ice Age does serve a purpose for reducing incentives for miners and so as to facilitate the adaption to the PoS hardfork(s); however, it is at the expense of slower responsiveness in the system.</p>
+        <p>Appeals for removing the difficulty bomb and delaying the Ice Age are voiced in the community, but at the same time, it would also mean the continuous inflation of coins remains. Thus, we also see corresponding proposals for a reduction of Etherum coin emission to maintain the original more predictable supply plan, which would be beneficial for increasing investments and in the long run, a robust and stable growth for the platform.</p>
+        <p>There it came EIP#186(<a href="https://github.com/ethereum/EIPs/issues/186" target="_blank">https://github.com/ethereum/EIPs/issues/186</a>). EIP#186 is drafted in the spirit of preserving fast response of the system, ensuring a smoother transition to PoS, and at the same time a decrease in per-block rewards.</p>
+
+        <p><strong>Rationale for the choice of motion:</strong></p>
+        <p>Instead of a direct vote on EIP#186, we propose for a show of preference first. And as the discussion is both about choosing the direction of economic model and its policies, the motion is designed in a slightly more compound form to provide guidelines for detailed policy making that follows.</p>
+
+        <p><strong>Motion: The ice age should not be extended without at least some decrease in block rewards.</strong></p>
+        <p>In the case of the proposition, <strong>we would like to have a differentiation on the preferred per-block minimum rewards</strong></p>
+      </div>
+
+    </div>
+
+    <div class="address rhythm">
+      <h2>To Decrease Block Rewards</h2>
+
+      <p class="no">
+      <strong>NO</strong>
+      <a class="" target="_blank" href="http://etherscan.io/address/<%= settings.contract_addresses[:no_contract] %>"><code><%= settings.contract_addresses[:no_contract] %></code></a>
+      <strong>Count: <%= get_amount(:no_contract).round(4) %> Ether</strong>
+      </p>
+
+      <p class="yes">
+      <strong>YES: 0 ≤ reward < 1.5</strong>
+      <a class="" target="_blank" href="http://etherscan.io/address/<%= settings.contract_addresses[:yes_contract_1] %>"><code><%= settings.contract_addresses[:yes_contract_1] %></code></a>
+      <strong>Count: <%= get_amount(:yes_contract_1).round(4) %> Ether</strong>
+      </p>
+
+      <p class="yes">
+      <strong>YES: 1.5 ≤ reward < 2</strong>
+      <a class="" target="_blank" href="http://etherscan.io/address/<%= settings.contract_addresses[:yes_contract_2] %>"><code><%= settings.contract_addresses[:yes_contract_2] %></code></a>
+      <strong>Count: <%= get_amount(:yes_contract_2).round(4) %> Ether</strong>
+      </p>
+
+      <p class="yes">
+      <strong>YES: 2 ≤ reward < 3</strong>
+      <a class="" target="_blank" href="http://etherscan.io/address/<%= settings.contract_addresses[:yes_contract_3] %>"><code><%= settings.contract_addresses[:yes_contract_3] %></code></a>
+      <strong>Count: <%= get_amount(:yes_contract_3).round(4) %> Ether</strong>
+      </p>
+
+      <p class="yes">
+      <strong>YES: 3 ≤ reward < 4</strong>
+      <a class="" target="_blank" href="http://etherscan.io/address/<%= settings.contract_addresses[:yes_contract_4] %>"><code><%= settings.contract_addresses[:yes_contract_4] %></code></a>
+      <strong>Count: <%= get_amount(:yes_contract_4).round(4) %> Ether</strong>
+      </p>
+      <p class="yes">
+      <strong>YES: reward ≥ 4</strong>
+      <a class="" target="_blank" href="http://etherscan.io/address/<%= settings.contract_addresses[:yes_contract_5] %>"><code><%= settings.contract_addresses[:yes_contract_5] %></code></a>
+      <strong>Count: <%= get_amount(:yes_contract_5).round(4) %> Ether</strong>
+      </p>
+    </div>
+
+    <div class="status">
+      <div class="item">
+        <h2 class="caption no">NO</h2>
+        <p class="amount">Ether: <%= no_vote_amount %></p>
+      </div>
+
+      <div class="item">
+        <h2 class="caption yes">YES</h2>
+        <p class="amount">Ether: <%= yes_vote_amount %></p>
+      </div>
+    </div>
+
+    <a href="https://github.com/ethfans/carbonvote"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+  </header>
+
+  <article class="rhythm">
+    <h3 class='title'>Last Block: <%= last_block %></h3>
+  </article>
+
+  <div class="CarbonvoteChart-wrapper">
+    <div id="CarbonvoteChart"></div>
+  </div>
+
+  <section class="transactions">
+    <nav class="yes">
+      <ol>
+        <%# <% yesTx.forEach(function(tx) { %1> %>
+        <%# <li><a class="hash" target="_blank" href="http://etherscan.io/tx/<%= tx %1>"><%= tx %1></a></li> %>
+        <%# <% }); %1> %>
+      </ol>
+    </nav>
+
+    <nav class="no">
+      <ol>
+        <%# <% noTx.forEach(function(tx) { %1> %>
+        <%# <li><a class="hash" target="_blank" href="http://etherscan.io/tx/<%= tx %1>"><%= tx %1></a></li> %>
+        <%# <% }); %1> %>
+      </ol>
+    </nav>
+  </section>
+
+  <div class="view-more">
+    <%# <% if (yesTx.length) { %1> %>
+    <%# <a class="transactions-more" target="_blank" href="http://etherscan.io/address/<%= yesContractAddress %1>">View More</a> %>
+    <%# <% } %1> %>
+
+    <%# <% if (noTx.length) { %1> %>
+    <%# <a class="transactions-more" target="_blank" href="http://etherscan.io/address/<%= noContractAddress %1>">View More</a> %>
+    <%# <% } %1> %>
+  </div>
+
+  <article class="rhythm" id="">
+    <h2>Carbonvote.com Mechanism</h2>
+    <p><strong>1) Who should vote?</strong></p>
+    <p>We believe the legitimate voters should be players who have ethers in their wallets.</p>
+
+    <p><strong>2) So we are going to count heads?</strong></p>
+    <p>No. We are going to count coins, in this case, ethers. How many ethers you have, how many votes you have.</p>
+
+    <p><strong>3) How to vote?</strong></p>
+    <p>Simply, send a 0-ETH transaction from your wallet to the YES or NO address. The transaction itself serves as a message of the vote. The ethers under the from address of the transaction will be considered a unanimous batch of ballots that support or oppose the proposal of a hard fork.</p>
+
+    <p><strong>Your ethers are safe in your wallets. We won’t collect or lock money.</strong></p>
+
+    <p><strong>4) How’s the vote counted?</strong></p>
+    <p>Carbonvote.com dynamically calculates the ETH that has gone to the two sides as the vote is going on.</p>
+    <p>So you can change your mind, you can overwrite your vote by resending your message or move the ETH from the addresses that have participated so as to suggest that you are abstaining from the vote as the ETH won’t be able to be counted as votes anymore.</p>
+  </article>
+
+  <article class="rhythm" id="">
+    <h2>Accounts filtered (Exchange's withdraw address)</h2>
+    <ul>
+      <% settings.black_list.each do |name, address| %>
+        <li><%= name %>: <a href="http://etherscan.io/address/<%= address %>"><%= address %></a></li>
+      <% end %>
+    </ul>
+  </article>
+
+  <article class="rhythm" id="">
+    <h2>About Carbonvote.com</h2>
+    <p><a href="http://carbonvote.com">Carbonvote.com</a> was initiated during the DAO hard fork and conducted vote in a secure web-page fashion with the feature that the voting conducted did not require coins to leave voters’ wallets. It had been a great source of reference when the community decided to go with the fork. Our thanks to all that participated in the last and our first round of the vote in DAO hard fork.</p>
+    <p>Once again, <a href="http://carbonvote.com">Carbonvote.com</a> is a community initiated project devdicated to
+    be an important source of reference in a quantitate way, to offer suggestions to the directions of Ethereum for developers and the Ethereum Foundation. We are open to feedbacks to improve in order to better serve the purpose.</p>
+  </article>
+
+  <footer>
+    <p class="contribute">contributed by</p>
+    <nav>
+      <a href="http://ethfans.org/">Ethfans</a>
+      <a href="http://consenlabs.com/">ConsenLabs</a>
+      <a href="http://andui.com/">StoneLedger</a>
+      <a href="http://cryptape.com/">Cryptape</a>
+    </nav>
+    <p>
+    </p>
+  </footer>
+
+  <script src="javscripts/highcharts.js" charset="utf-8"></script>
+  <script src="javscripts/index.js" charset="utf-8"></script>
+</body>
+</html>
