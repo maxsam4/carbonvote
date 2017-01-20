@@ -1,6 +1,3 @@
-require 'redis'
-require 'forwardable'
-
 require_relative 'carbonvote/contract'
 require_relative 'carbonvote/pool'
 require_relative 'carbonvote/puller'
