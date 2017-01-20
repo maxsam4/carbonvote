@@ -3,12 +3,12 @@
 :start_block_number: 3031000
 :end_block_number: 4000000
 :contract_addresses:
-  :no_contract: '0x71cAFF5fD6FacbaF1863426aC05b3703636a9BB9'
-  :yes_contract_1: '0x3Af6dF663d717b0Ecc24144279a81A2483Fbe510'
-  :yes_contract_2: '0xA73908834DFDd442EBFE171100ac0BeFa6Abb1F5'
-  :yes_contract_3: '0x5A3466432Ff4Ba946f84786462f0b6830c7D2bEF'
-  :yes_contract_4: '0x77888FAaB224e03d76c517455c442cB6fE8DAe40'
-  :yes_contract_5: '0xFb0d2a63d8910D9582c430f1ffD3b2FC79bBDfdF'
+  :no_contract: '0x71caff5fd6facbaf1863426ac05b3703636a9bb9'
+  :yes_contract_1: '0x3af6df663d717b0ecc24144279a81a2483fbe510'
+  :yes_contract_2: '0xa73908834dfdd442ebfe171100ac0befa6abb1f5'
+  :yes_contract_3: '0x5a3466432ff4ba946f84786462f0b6830c7d2bef'
+  :yes_contract_4: '0x77888faab224e03d76c517455c442cb6fe8dae40'
+  :yes_contract_5: '0xfb0d2a63d8910d9582c430f1ffd3b2fc79bbdfdf'
 :black_list:
   :Yunbi: '0xd94c9ff168dc6aebf9b6cc86deff54f3fb0afc33'
   :Kraken: '0x2910543af39aba0cd09dbb2d50200b3e800a63d2'
