@@ -29,11 +29,11 @@ class App < Sinatra::Base
 
     def yes_votes
       @yes_votes ||= {
-        "0 ≤ reward < 1.5": get_amount(:yes_contract_1),
-        "1.5 ≤ reward < 2": get_amount(:yes_contract_2),
-        "2 ≤ reward < 3": get_amount(:yes_contract_3),
-        "3 ≤ reward < 4": get_amount(:yes_contract_4),
-        "reward ≥ 4": get_amount(:yes_contract_5)
+        "0 ≤ reward < 1.5" => get_amount(:yes_contract_1),
+        "1.5 ≤ reward < 2" => get_amount(:yes_contract_2),
+        "2 ≤ reward < 3"   => get_amount(:yes_contract_3),
+        "3 ≤ reward < 4"   => get_amount(:yes_contract_4),
+        "reward ≥ 4"       => get_amount(:yes_contract_5)
       }
     end
 
@@ -45,7 +45,7 @@ class App < Sinatra::Base
       get_amount(:no_contract).round(4)
     end
 
-    def presentage(n, base)
+    def precentage(n, base)
       return 0.0 if base.zero?
 
       (n.to_f / base.to_f * 100).round(4)
@@ -64,16 +64,16 @@ class App < Sinatra::Base
   get '/vote' do
     total_amount = yes_vote_amount + no_vote_amount
     yes_drilldown = yes_votes.reduce([]) do |sum, i|
-      sum << [i[0], presentage(i[1], yes_vote_amount)]
+      sum << [CGI.escape_html(i[0]), precentage(i[1], yes_vote_amount)]
     end
 
-    yes_presentage = presentage(yes_vote_amount, total_amount)
-    no_presentage = presentage(no_vote_amount, total_amount)
+    yes_precentage = precentage(yes_vote_amount, total_amount)
+    no_precentage = precentage(no_vote_amount, total_amount)
 
     json({
-      yes_presentage: yes_presentage,
+      yes_precentage: yes_precentage,
       yes_drilldown: yes_drilldown,
-      no_presentage: no_presentage
+      no_precentage: no_precentage
     })
   end
 end
