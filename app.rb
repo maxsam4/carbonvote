@@ -27,18 +27,28 @@ class App < Sinatra::Base
       (redis.get("#{key}-amount") || 0).to_f
     end
 
+    def yes_votes
+      @yes_votes ||= {
+        "0 ≤ reward < 1.5": get_amount(:yes_contract_1),
+        "1.5 ≤ reward < 2": get_amount(:yes_contract_2),
+        "2 ≤ reward < 3": get_amount(:yes_contract_3),
+        "3 ≤ reward < 4": get_amount(:yes_contract_4),
+        "reward ≥ 4": get_amount(:yes_contract_5)
+      }
+    end
+
     def yes_vote_amount
-      [
-        get_amount(:yes_contract_1),
-        get_amount(:yes_contract_2),
-        get_amount(:yes_contract_3),
-        get_amount(:yes_contract_4),
-        get_amount(:yes_contract_5)
-      ].sum.round(4)
+      @yes_vote_amount ||= yes_votes.values.sum.round(4)
     end
 
     def no_vote_amount
       get_amount(:no_contract).round(4)
+    end
+
+    def presentage(n, base)
+      return 0.0 if base.zero?
+
+      (n.to_f / base.to_f * 100).round(4)
     end
   end
 
@@ -52,6 +62,18 @@ class App < Sinatra::Base
   end
 
   get '/vote' do
-    json yes: yes_vote_amount, no: no_vote_amount
+    total_amount = yes_vote_amount + no_vote_amount
+    yes_drilldown = yes_votes.reduce([]) do |sum, i|
+      sum << [i[0], presentage(i[1], yes_vote_amount)]
+    end
+
+    yes_presentage = presentage(yes_vote_amount, total_amount)
+    no_presentage = presentage(no_vote_amount, total_amount)
+
+    json({
+      yes_presentage: yes_presentage,
+      yes_drilldown: yes_drilldown,
+      no_presentage: no_presentage
+    })
   end
 end
