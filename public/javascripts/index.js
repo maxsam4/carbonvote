@@ -21,16 +21,15 @@ function createChart(data) {
       }
     },
     tooltip: {
-      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
       pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
     },
     series: [{
-      name: 'Vote',
+      name: 'Presentage',
       colorByPoint: true,
       data: [{
         name: 'Vote YES',
         y: data.yes_presentage,
-        drilldown: 'YES'
+        drilldown: 'Vote YES'
       }, {
         name: 'Vote NO',
         y: data.no_presentage,
@@ -39,8 +38,8 @@ function createChart(data) {
     }],
     drilldown: {
       series: [{
-        name: 'YES',
-        id: 'YES',
+        name: 'Vote YES',
+        id: 'Vote YES',
         data: data.yes_drilldown
       }]
     },
