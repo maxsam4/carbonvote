@@ -5,8 +5,6 @@ window.addEventListener('load', function() {
     window.web3 = new Web3(web3.currentProvider);
   } else {
     console.log('No web3? You should consider trying MetaMask!')
-    // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
-    window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
   }
 
   // Now you can start your app & access web3 freely:
@@ -27,17 +25,21 @@ function sendTransaction() {
   var sendButton = document.querySelectorAll('.send')
 
   for (var i = 0; i < sendButton.length; i++) {
-    sendButton[i].addEventListener('click', function() {
-      web3.eth.sendTransaction({
-        from: web3.eth.defaultAccount,
-        to: this.dataset.address,
-        value: 0,
-      }, function(err, address) {
-        if (!err) {
-          console.log('sendTransaction', address)
-        }
+    if (typeof web3 !== 'undefined') {
+      sendButton[i].addEventListener('click', function() {
+        web3.eth.sendTransaction({
+          from: web3.eth.defaultAccount,
+          to: this.dataset.address,
+          value: 0,
+        }, function(err, address) {
+          if (!err) {
+            console.log('sendTransaction', address)
+          }
+        })
       })
-    })
+    } else {
+      sendButton[i].classList.add('hide')
+    }
   }
 }
 

@@ -124,6 +124,9 @@ main header .desc {
   margin: 0;
   color: #7e8890;
   line-height: 3em;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .vote .box .action .send {
@@ -136,6 +139,9 @@ main header .desc {
   border-radius: 6.25em;
 }
 
+.vote .box .action .send.hide {
+  display: none;
+}
 
 .status {
   width: 780px;
