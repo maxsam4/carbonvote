@@ -1,51 +1,113 @@
-function createChart(data) {
-  Highcharts.chart('CarbonvoteChart', {
-    chart: {
-      type: 'pie'
-    },
-    credits: {
-      enabled: false
-    },
-    title: {
-      text: 'Vote Status'
-    },
-    subtitle: {
-      text: 'Click the slices to view details.'
-    },
-    plotOptions: {
-      series: {
-        dataLabels: {
-          enabled: true,
-          format: '{point.name}: {point.y:.1f}%'
+window.addEventListener('load', function() {
+  // Checking if Web3 has been injected by the browser (Mist/MetaMask)
+  if (typeof web3 !== 'undefined') {
+    // Use Mist/MetaMask's provider
+    window.web3 = new Web3(web3.currentProvider);
+  } else {
+    console.log('No web3? You should consider trying MetaMask!')
+    // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
+    window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+  }
+
+  // Now you can start your app & access web3 freely:
+  startApp()
+})
+
+function startApp() {
+  sendTransaction()
+
+  ajaxLoad('/vote', function(res) {
+    var data = JSON.parse(res)
+    console.log(data);
+    renderChart(data)
+  })
+}
+
+function sendTransaction() {
+  var sendButton = document.querySelectorAll('.send')
+
+  for (var i = 0; i < sendButton.length; i++) {
+    sendButton[i].addEventListener('click', function() {
+      web3.eth.sendTransaction({
+        from: web3.eth.defaultAccount,
+        to: this.dataset.address,
+        value: 0,
+      }, function(err, address) {
+        if (!err) {
+          console.log('sendTransaction', address)
         }
+      })
+    })
+  }
+}
+
+function renderChart(data) {
+  var pieChartContext = document.getElementById("pie-chart")
+  var pieChart = new Chart(pieChartContext, {
+    type: 'doughnut',
+    data: {
+      labels: ['YES', 'NO'],
+      datasets: [{
+        data: [data.yes_precentage, data.no_precentage],
+        backgroundColor: [
+          "#36A2EB",
+          "#FFCE56"
+        ],
+      }],
+    },
+    options: {
+      responsive: true,
+      legend: {
+        display: false,
+        position: 'bottom',
       }
+    }
+  })
+
+  var barChartContext = document.getElementById("bar-chart")
+  var barChart = new Chart(barChartContext, {
+    type: 'horizontalBar',
+    data: {
+      labels: [
+        'NO',
+        'YES: 0 ≤ reward < 1.5',
+        'YES: 1.5 ≤ reward < 2',
+        'YES: 2 ≤ reward < 3',
+        'YES: 3 ≤ reward < 4',
+        'YES: reward ≥ 4',
+      ],
+      datasets: [{
+        data: [
+          9437,
+          data.yes_drilldown[0][1],
+          data.yes_drilldown[1][1],
+          data.yes_drilldown[2][1],
+          data.yes_drilldown[3][1],
+          data.yes_drilldown[4][1]
+        ],
+        backgroundColor: [
+            "#FFCE56",
+            "#36A2EB",
+            "#36A2EB",
+            "#36A2EB",
+            "#36A2EB",
+            "#36A2EB",
+        ],
+      }],
     },
-    tooltip: {
-      headerFormat: '<span style="font-size:11px">{point.key}</span><br>',
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    series: [{
-      name: 'Precentage',
-      colorByPoint: true,
-      data: [{
-        name: 'Vote YES',
-        y: data.yes_precentage,
-        drilldown: 'Vote YES'
-      }, {
-        name: 'Vote NO',
-        y: data.no_precentage,
-        drilldown: null
-      }]
-    }],
-    drilldown: {
-      series: [{
-        name: 'Precentage',
-        id: 'Vote YES',
-        data: data.yes_drilldown
-      }]
-    },
-    colors: ['#99CC66', '#FF6666', '#333', '#CB2326', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#CB2326']
-  });
+    options: {
+      responsive: true,
+      legend: {
+        display: false,
+      },
+      scales: {
+        yAxes: [{
+          barPercentage: 0.5,
+          categoryPercentage: 0.5,
+        }]
+      }
+    }
+  })
 }
 
 function ajaxLoad(url, callback) {
@@ -68,9 +130,3 @@ function ajaxLoad(url, callback) {
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
 }
-
-(function() {
-  ajaxLoad('/vote', function(res) {
-    createChart(JSON.parse(res))
-  })
-})()
