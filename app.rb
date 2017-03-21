@@ -42,13 +42,25 @@ class App < Sinatra::Base
     end
 
     def no_vote_amount
-      get_amount(:no_contract).round(4)
+      @no_vote_amount ||= get_amount(:no_contract).round(4)
     end
 
     def precentage(n, base)
       return 0.0 if base.zero?
 
       (n.to_f / base.to_f * 100).round(4)
+    end
+
+    def total_amount
+      @total_amount ||= yes_vote_amount + no_vote_amount
+    end
+
+    def yes_precentage
+      precentage(yes_vote_amount, total_amount)
+    end
+
+    def no_precentage
+      precentage(no_vote_amount, total_amount)
     end
   end
 
@@ -62,15 +74,12 @@ class App < Sinatra::Base
   end
 
   get '/vote' do
-    total_amount = yes_vote_amount + no_vote_amount
     yes_drilldown = yes_votes.reduce([]) do |sum, i|
       sum << [CGI.escape_html(i[0]), precentage(i[1], yes_vote_amount)]
     end
 
-    yes_precentage = precentage(yes_vote_amount, total_amount)
-    no_precentage = precentage(no_vote_amount, total_amount)
-
     json({
+      yes_vote_amount: yes_vote_amount,
       yes_precentage: yes_precentage,
       yes_drilldown: yes_drilldown,
       no_precentage: no_precentage

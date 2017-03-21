@@ -80,7 +80,7 @@ function renderChart(data) {
       ],
       datasets: [{
         data: [
-          9437,
+          data.yes_vote_amount,
           data.yes_drilldown[0][1],
           data.yes_drilldown[1][1],
           data.yes_drilldown[2][1],
