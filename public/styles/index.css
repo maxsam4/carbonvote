@@ -37,7 +37,7 @@ main {
   min-width: 1280px;
   background-size: cover;
   background-position: center;
-  background-image: url(https://assets-cdn.shimo.im/assets/images/home/index/banner_back-91f35c0c1c.jpg);
+  background-image: url("https://whale-token-im.b0.upaiyun.com/cms-production/images/header.jpg");
   overflow: hidden;
 }
 
@@ -55,12 +55,14 @@ main header .title {
   letter-spacing: normal;
   margin: 0;
   font: 300 35px/52px "Open Sans", open-sans, sans-serif;
+  text-shadow: 1px 1px 3px rgba(0,0,0,.3);
 }
 
 main header .desc {
   color: #fff;
   font-size: 16px;
   line-height: 1.9em;
+  text-shadow: 1px 1px 3px rgba(0,0,0,.3);
 }
 
 .intro {
@@ -151,6 +153,7 @@ main header .desc {
 .status .title {
   text-align: center;
   font-size: 18px;
+  margin-bottom: 1em;
 }
 
 .status .main-status {
@@ -264,12 +267,11 @@ main header .desc {
   text-align: center;
   margin: 0;
   font-size: 14px;
-  margin-bottom: 2em;
 }
 
 .exchange-filter .inner {
   width: 680px;
-  margin: 0 auto;
+  margin: 2em auto;
 }
 
 .exchange-filter .inner input {
@@ -295,4 +297,20 @@ main header .desc {
   font-size: 14px;
   border: none;
   margin-left: 20px;
+}
+
+.exchange-list {
+  display: none;
+}
+
+.tingle-modal-box__content ul {
+  list-style: none;
+}
+
+.tingle-modal-box__content li {
+  margin: 1em 0;
+}
+
+.tingle-modal-box__content .exchange-list {
+  display: block;
 }
