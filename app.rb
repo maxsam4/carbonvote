@@ -79,9 +79,9 @@ class App < Sinatra::Base
     end
 
     json({
-      yes_vote_amount: yes_vote_amount,
       yes_precentage: yes_precentage,
       yes_drilldown: yes_drilldown,
+      no_vote_amount: no_vote_amount,
       no_precentage: no_precentage
     })
   end
