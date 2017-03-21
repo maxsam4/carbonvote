@@ -75,7 +75,7 @@ class App < Sinatra::Base
 
   get '/vote' do
     yes_drilldown = yes_votes.reduce([]) do |sum, i|
-      sum << [CGI.escape_html(i[0]), precentage(i[1], yes_vote_amount)]
+      sum << [CGI.escape_html(i[0]), i[1], precentage(i[1], yes_vote_amount)]
     end
 
     json({
