@@ -314,3 +314,26 @@ main header .desc {
 .tingle-modal-box__content .exchange-list {
   display: block;
 }
+
+footer {
+  padding: 2em 0;
+  text-align: center;
+}
+
+footer .title {
+  font-size: 16px;
+}
+
+footer nav a {
+  margin: 0 1em;
+  font-size: 14px;
+  color: #7e8890;
+}
+
+footer nav a:hover {
+  color: #6ea1e6;
+}
+
+.contribute-nav {
+  margin-bottom: 1em;
+}
