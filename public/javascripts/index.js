@@ -13,6 +13,7 @@ window.addEventListener('load', function() {
 
 function startApp() {
   sendTransaction()
+  renderModal()
 
   ajaxLoad('/vote', function(res) {
     var data = JSON.parse(res)
@@ -109,6 +110,21 @@ function renderChart(data) {
         }]
       }
     }
+  })
+}
+
+function renderModal() {
+  var showExchangeList = document.querySelector('#show-exchange-list')
+  var exchangeList = document.querySelector('.exchange-list')
+  showExchangeList.addEventListener('click', function(e) {
+    e.preventDefault()
+    modal.setContent(exchangeList.innerHTML)
+    modal.open()
+  })
+
+  var modal = new tingle.modal({
+    stickyFooter: false,
+    closeLabel: "Close",
   })
 }
 
