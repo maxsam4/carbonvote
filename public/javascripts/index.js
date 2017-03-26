@@ -14,6 +14,7 @@ window.addEventListener('load', function() {
 function startApp() {
   sendTransaction()
   renderModal()
+  formatAddress()
 
   ajaxLoad('/vote', function(res) {
     var data = JSON.parse(res)
@@ -142,6 +143,15 @@ function renderModal() {
   })
 }
 
+function formatAddress() {
+  if (isMobile()) {
+    var address = document.querySelectorAll('.box .address')
+    for (var i = 0; i < address.length; i++) {
+      address[i].innerHTML = ellipsis(address[i].innerHTML.trim(), 24)
+    }
+  }
+}
+
 function ajaxLoad(url, callback) {
   var xmlhttp = new XMLHttpRequest();
 
@@ -161,4 +171,20 @@ function ajaxLoad(url, callback) {
 
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
+}
+
+function isMobile() {
+   if (window.innerWidth <= 1208) {
+     return true
+   } else {
+     return false
+   }
+}
+
+function ellipsis(string, length) {
+  if (string && string.length > length) {
+    return string.substring(0, length / 2) + '...' + string.substr(string.length - length / 2, string.length)
+  }
+
+  return string
 }

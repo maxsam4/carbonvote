@@ -53,7 +53,7 @@
   }
 
   .vote .box .address {
-    display: none;
+    font-size: 12px;
   }
 
   .vote .box .action .amount {
