@@ -346,3 +346,7 @@ footer nav a:hover {
 .contribute-nav {
   margin-bottom: 1em;
 }
+
+.info-mobile {
+  display: none;
+}

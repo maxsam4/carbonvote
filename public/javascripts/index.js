@@ -109,8 +109,18 @@ function renderChart(data) {
       },
       scales: {
         yAxes: [{
-          barPercentage: 0.5,
-          categoryPercentage: 0.5,
+          barPercentage: 0.7,
+          categoryPercentage: 0.7,
+          ticks: {
+            fontSize: 12,
+            lineHeight: 1.5,
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            fontSize: 12,
+            lineHeight: 1.5,
+          }
         }]
       }
     }
