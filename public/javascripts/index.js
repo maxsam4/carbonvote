@@ -28,8 +28,12 @@ function sendTransaction() {
   for (var i = 0; i < sendButton.length; i++) {
     if (typeof web3 !== 'undefined') {
       sendButton[i].addEventListener('click', function() {
+        if (web3.eth.accounts.length === 0) {
+          return alert('No accounts added to dapp')
+        }
+
         web3.eth.sendTransaction({
-          from: web3.eth.defaultAccount,
+          from: web3.eth.accounts[0],
           to: this.dataset.address,
           value: 0,
         }, function(err, address) {
