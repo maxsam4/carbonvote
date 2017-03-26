@@ -1,0 +1,107 @@
+@media (max-width: 1208px) {
+  /*
+    display none
+   */
+  .status .main-status .info.left,
+  .status .main-status .info.right,
+  .exchange-filter {
+   display: none;
+  }
+
+  h2,
+  h3 {
+    font: 300 18px/1.6em "Open Sans", open-sans, sans-serif;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  main {
+    min-width: 100%;
+  }
+
+  main header {
+    width: 90%;
+  }
+
+  main header .desc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    font-size: 14px;
+  }
+
+  .intro {
+    width: 90%;
+    padding: 1em;
+    margin: -250px auto 0;
+  }
+
+  .vote {
+    width: 90%;
+  }
+
+  .vote .box {
+    padding: .5em;
+  }
+
+  .vote .box .choice {
+    font-size: 14px;
+  }
+
+  .vote .box .address {
+    display: none;
+  }
+
+  .vote .box .action .amount {
+    font-size: 12px;
+  }
+
+  .vote .box .action .send {
+    font-size: 12px;
+    padding: .4em 1.5em;
+  }
+
+  .status {
+    width: 100%;
+  }
+
+  .status .pie-chart-container {
+    width: 90%;
+    height: auto;
+  }
+
+  .status .bar-chart-container {
+    width: 90%;
+  }
+
+  .faq,
+  .about {
+    padding: 1em;
+    padding-top: 2em;
+    margin: 1em auto;
+  }
+
+  .vote .title,
+  .faq .title,
+  .about .title {
+    font-size: 26px;
+  }
+
+  .faq .inner,
+  .about .inner {
+    width: 100%;
+  }
+
+  footer {
+    border-top: 1px solid #cfd5e1;
+  }
+
+  footer nav a {
+    margin: 0 .5em;
+    font-size: 12px;
+  }
+}

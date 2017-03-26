@@ -24,6 +24,8 @@ p {
   font-size: 16px;
   line-height: 1.9em;
   color: #7e8890;
+  word-wrap: break-word;
+  word-break: normal;
 }
 
 canvas {
