@@ -3,6 +3,7 @@ require_relative 'geth/payload'
 require_relative 'geth/node'
 require_relative 'geth/client/base'
 require_relative 'geth/client/ipc_client'
+require_relative 'geth/client/rpc_client'
 
 module Geth
   class << self
@@ -16,7 +17,11 @@ module Geth
     private
 
     def client(endpoint, logger)
-      Geth::Client::IpcClient.new(endpoint: endpoint, logger: logger)
+      if endpoint&.start_with?("http")
+        Geth::Client::RpcClient.new(endpoint: endpoint, logger: logger)
+      else
+        Geth::Client::IpcClient.new(endpoint: endpoint, logger: logger)
+      end
     end
   end
 end

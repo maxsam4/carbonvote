@@ -4,7 +4,7 @@ module Geth
       attr_accessor :ipcpath
 
       def initialize(endpoint: nil, logger: nil)
-        super(logger: logger)
+        super(logger)
         @ipcpath = endpoint || default_ipcpath
       end
 

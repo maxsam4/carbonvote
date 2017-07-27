@@ -5,13 +5,17 @@ module Geth
     class Base
       attr_accessor :logger
 
-      def initialize(logger: Logger.new(STDOUT))
+      def initialize(logger)
         @logger = logger
         @req_id = 0
       end
 
       def req_id
         @req_id += 1
+      end
+
+      def logger
+        @logger ||= Logger.new(STDOUT)
       end
 
       def jsonrpc_encode(method, params)
