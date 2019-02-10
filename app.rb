@@ -29,11 +29,7 @@ class App < Sinatra::Base
 
     def yes_votes
       @yes_votes ||= {
-        "0 ≤ reward < 1.5" => get_amount(:yes_contract_1),
-        "1.5 ≤ reward < 2" => get_amount(:yes_contract_2),
-        "2 ≤ reward < 3"   => get_amount(:yes_contract_3),
-        "3 ≤ reward < 4"   => get_amount(:yes_contract_4),
-        "reward ≥ 4"       => get_amount(:yes_contract_5)
+        "Yes" => get_amount(:yes_contract_1)
       }
     end
 

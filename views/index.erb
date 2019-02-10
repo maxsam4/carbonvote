@@ -32,63 +32,18 @@
 </main>
 
 <article class="intro">
-  <h2>Hey Ethereum Community,</h2>
-  <p>In the face of the approaching Ice Age, we are faced with problems:</p>
-  <p>
-    The prolonged block time in the Ice Age does serve a purpose for reducing
-    incentives for miners and so as to facilitate the adaption to the PoS hardfork(s);
-    however, it is at the expense of slower responsiveness in the system.
-  </p>
-
-  <p>
-    Appeals for removing the difficulty bomb and delaying the Ice Age are voiced
-    in the community, but at the same time, it would also mean the continuous
-    inflation of coins remains. Thus, we also see corresponding proposals for a
-    reduction of Etherum coin emission to maintain the original more predictable
-    supply plan, which would be beneficial for increasing investments and in the
-    long run, a robust and stable growth for the platform.
-  </p>
-
-  <p>
-    There it came EIP#186(<a href="https://github.com/ethereum/EIPs/issues/186">https://github.com/ethereum/EIPs/issues/186</a>).
-    EIP#186 is drafted in the spirit of preserving fast response of the system, ensuring
-    a smoother transition to PoS, and at the same time a decrease in per-block rewards.
-  </p>
-
-  <h3>Rationale for the choice of motion:</h3>
-  <p>
-    Instead of a direct vote on EIP#186, we propose for a show of preference
-    first. And as the discussion is both about choosing the direction of economic
-     model and its policies, the motion is designed in a slightly more compound
-     form to provide guidelines for detailed policy making that follows.
-  </p>
-
-  <p>
-    <strong>
-      Motion: The ice age should not be extended without at least some decrease in block rewards.
-    </strong>
-  </p>
-
-  <p>
-    In the case of the proposition, <strong>we would like to have a differentiation on
-    the preferred per-block minimum rewards</strong>
-  </p>
+  <h2>ProgPoW?</h2>
+  <p>To ProgPoW or not to ProgPoW?</p>
 </article>
 
 <section class="vote">
-  <h2 class="title">How to vote?</h2>
-  <p>
-  Instead of a direct vote on <a href="https://github.com/ethereum/EIPs/issues/186">EIP#186</a>, we propose for a show of preference
-    first. And as the discussion is both about choosing the direction of economic
-    model and its policies, the motion is designed in a slightly more compound
-    form to provide guidelines for detailed policy making that follows.
-  </p>
+  <h2 class="title">Vote!</h2>
 
   <div class="box-wrapper">
     <div class="box">
       <div>
         <p class="choice">No</p>
-        <a class="address" target="_blank" href="http://etherscan.io/address/<%= settings.contract_addresses[:no_contract] %>">
+        <a class="address" target="_blank" href="http://goerli.etherscan.io/address/<%= settings.contract_addresses[:no_contract] %>">
           <%= settings.contract_addresses[:no_contract] %>
         </a>
       </div>
@@ -103,8 +58,8 @@
 
     <div class="box">
       <div>
-        <p class="choice">YES: 0 ≤ reward < 1.5</p>
-        <a class="address" target="_blank" href="http://etherscan.io/address/<%= settings.contract_addresses[:yes_contract_1] %>">
+        <p class="choice">Yes</p>
+        <a class="address" target="_blank" href="http://goerli.etherscan.io/address/<%= settings.contract_addresses[:yes_contract_1] %>">
           <%= settings.contract_addresses[:yes_contract_1] %>
         </a>
       </div>
@@ -112,70 +67,6 @@
       <div class="action">
         <p class="amount"><%= get_amount(:yes_contract_1).round(4) %> ether</p>
         <button class="send" data-address="<%= settings.contract_addresses[:yes_contract_1] %>">
-          Vote
-        </button>
-      </div>
-    </div>
-
-    <div class="box">
-      <div>
-        <p class="choice">YES: 1.5 ≤ reward < 2</p>
-        <a class="address" target="_blank" href="http://etherscan.io/address/<%= settings.contract_addresses[:yes_contract_2] %>">
-          <%= settings.contract_addresses[:yes_contract_2] %>
-        </a>
-      </div>
-
-      <div class="action">
-        <p class="amount"><%= get_amount(:yes_contract_2).round(4) %> ether</p>
-        <button class="send" data-address="<%= settings.contract_addresses[:yes_contract_2] %>">
-          Vote
-        </button>
-      </div>
-    </div>
-
-    <div class="box">
-      <div>
-        <p class="choice">YES: 2 ≤ reward < 3</p>
-        <a class="address" target="_blank" href="http://etherscan.io/address/<%= settings.contract_addresses[:yes_contract_3] %>">
-          <%= settings.contract_addresses[:yes_contract_3] %>
-        </a>
-      </div>
-
-      <div class="action">
-        <p class="amount"><%= get_amount(:yes_contract_3).round(4) %> ether</p>
-        <button class="send" data-address="<%= settings.contract_addresses[:yes_contract_3] %>">
-          Vote
-        </button>
-      </div>
-    </div>
-
-    <div class="box">
-      <div>
-        <p class="choice">YES: 3 ≤ reward < 4</p>
-        <a class="address" target="_blank" href="http://etherscan.io/address/<%= settings.contract_addresses[:yes_contract_4] %>">
-          <%= settings.contract_addresses[:yes_contract_4] %>
-        </a>
-      </div>
-
-      <div class="action">
-        <p class="amount"><%= get_amount(:yes_contract_4).round(4) %> ether</p>
-        <button class="send" data-address="<%= settings.contract_addresses[:yes_contract_4] %>">
-          Vote
-        </button>
-      </div>
-    </div>
-
-    <div class="box">
-      <div>
-        <p class="choice">YES: reward ≥ 4</p>
-        <a class="address" target="_blank" href="http://etherscan.io/address/<%= settings.contract_addresses[:yes_contract_5] %>">
-          <%= settings.contract_addresses[:yes_contract_5] %>
-        </a>
-      </div>
-
-      <div class="action">
-        <p class="amount"><%= get_amount(:yes_contract_5).round(4) %> ether</p>
-        <button class="send" data-address="<%= settings.contract_addresses[:yes_contract_5] %>">
           Vote
         </button>
       </div>
@@ -268,22 +159,8 @@
   </div>
 </section>
 
-<section class="about">
-  <h2 class="title">About Carbonvote.com</h2>
-  <div class="inner">
-    <p><a href="http://carbonvote.com">Carbonvote.com</a> was initiated during the DAO hard fork and conducted vote in a secure web-page fashion with the feature that the voting conducted did not require coins to leave voters’ wallets. It had been a great source of reference when the community decided to go with the fork. Our thanks to all that participated in the last and our first round of the vote in DAO hard fork.</p>
-    <p>Once again, <a href="http://carbonvote.com">Carbonvote.com</a> is a community initiated project dedicated to
-    be an important source of reference in a quantitate way, to offer suggestions to the directions of Ethereum for developers and the Ethereum Foundation. We are open to feedbacks to improve in order to better serve the purpose.</p>
-    <p>If you are looking for historical votes, please visit <a href="http://v1.carbonvote.com">http://v1.carbonvote.com</a>.</p>
-  </div>
-</section>
-
 <section class="exchange-filter">
   <h2 class="title">Accounts filtered (Exchange's withdraw address)</h2>
-  <div class="inner">
-    <input type="text" placeholder="input address">
-    <button type="submit">submit</button>
-  </div>
 
   <p class="desc">
     <a id="show-exchange-list" href="#">Exchange list</a>
@@ -295,6 +172,16 @@
         <li><%= name %>: <a href="http://etherscan.io/address/<%= address %>"><%= address %></a></li>
       <% end %>
     </ul>
+  </div>
+</section>
+
+<section class="about">
+  <h2 class="title">About Carbonvote.com</h2>
+  <div class="inner">
+    <p><a href="http://carbonvote.com">Carbonvote.com</a> was initiated during the DAO hard fork and conducted vote in a secure web-page fashion with the feature that the voting conducted did not require coins to leave voters’ wallets. It had been a great source of reference when the community decided to go with the fork. Our thanks to all that participated in the last and our first round of the vote in DAO hard fork.</p>
+    <p>Once again, <a href="http://carbonvote.com">Carbonvote.com</a> is a community initiated project dedicated to
+    be an important source of reference in a quantitate way, to offer suggestions to the directions of Ethereum for developers and the Ethereum Foundation. We are open to feedbacks to improve in order to better serve the purpose.</p>
+    <p>If you are looking for historical votes, please visit <a href="http://v1.carbonvote.com">http://v1.carbonvote.com</a>.</p>
   </div>
 </section>
 

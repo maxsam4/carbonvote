@@ -1,6 +1,6 @@
 module Carbonvote
   class Contract
-    attr_reader :node, :name, :address, :redis
+    attr_reader :node, :name, :address, :logger, :redis
 
     def initialize(node: nil, name: '', address: '')
       settings = Settings.instance
@@ -8,6 +8,7 @@ module Carbonvote
       @node    = node
       @name    = name
       @address = address
+      @logger = Logger.new(STDOUT)
       @redis   = settings.redis
     end
 
@@ -22,20 +23,21 @@ module Carbonvote
       end
     end
 
-    def vote(account, block_number)
-      balance = node.balance(account, block_number)
-
+    def vote(account)
+      logger.info account
+      balance = node.balance(account)
+      logger.info balance
       redis.pipelined do
         redis.hset(address, account, balance)
         redis.incrbyfloat(amount_key, balance)
       end
     end
 
-    def update_balance(account, block_number)
+    def update_balance(account)
       return if account.nil?
 
       if balance = redis.hget(address, account)
-        new_balance = node.balance(account, block_number)
+        new_balance = node.balance(account)
 
         redis.pipelined do
           redis.incrbyfloat(amount_key, -balance.to_f)

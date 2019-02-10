@@ -24,9 +24,10 @@ module Carbonvote
       if (processed_number >= end_block_number)
         logger.info("Reach the end of block number: #{end_block_number}")
         @finished = true
-      elsif current_block_number - processed_number <= 6 # for just in case chain header might revert
-        sleep 15
+      #elsif current_block_number - processed_number <= 6 # for just in case chain header might revert
+      #  sleep 15
       else
+        logger.info processed_number.next
         process(processed_number.next)
       end
     rescue => e
@@ -40,7 +41,7 @@ module Carbonvote
     def process(block_number)
       block = node.block(block_number)
       block['transactions'].each do |tx_id|
-        pool.process tx_id, block_number
+        pool.process tx_id
       end
       update_processed_number(block_number)
     end

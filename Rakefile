@@ -18,7 +18,7 @@ task :pull do
   Signal.trap('TERM') { stop = true }
 
   logger = Logger.new(STDOUT)
-  node   = Geth.new(endpoint: 'http://localhost:8545', logger: logger)
+  node   = Geth.new(endpoint: 'http://rpc.goerli.mudit.blog', logger: logger)
   puller = Carbonvote::Puller.new(node: node, logger: logger)
 
   until stop
